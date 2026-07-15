@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MNZ.painel — Grupo MNZ</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <div class="logo">MNZ<span>.</span>painel</div>
+      <div class="sub">Grupo MNZ · admin</div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MN</div>
+      <div>
+        <div class="name">Matheus Nunes</div>
+        <div class="role">Admin</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="page-title">Painel geral</h1>
+        <div class="subtitle" id="page-subtitle">Visão rápida da loja hoje</div>
+      </div>
+      <div class="topbar-right">
+        <button class="bell">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="ping"></span>
+        </button>
+        <div class="row-flex" style="cursor:pointer">
+          <div class="avatar blue" style="width:28px;height:28px;font-size:10.5px;">MN</div>
+        </div>
+      </div>
+    </header>
+    <main class="content" id="content"></main>
+  </div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
