@@ -29,108 +29,17 @@ const ic = {
   check:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>',
   copy:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
   link:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 17H7A5 5 0 0 1 7 7h2M15 7h2a5 5 0 1 1 0 10h-2M8 12h8"/></svg>',
+  logout:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>',
 };
 
-/* ======================= MOCK DATA ======================= */
-const money = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-
-const CATEGORIES = [
-  {id:'uniformes',label:'Uniformes',color:'#0B3D91',count:34},
-  {id:'calcados',label:'Calçados',color:'#E5232A',count:21},
-  {id:'futebol',label:'Futebol',color:'#0B3D91',count:28},
-  {id:'acessorios',label:'Acessórios',color:'#111111',count:17},
-];
-
-const PRODUCTS = [
-  {id:'p1',name:'Camisa Uniforme Escolar Azul',cat:'uniformes',price:89.9,stock:142,status:'ativo',img:'👕'},
-  {id:'p2',name:'Chuteira Society Performance',cat:'calcados',price:219.9,stock:8,status:'ativo',img:'👟'},
-  {id:'p3',name:'Camisa Futebol Time Titular',cat:'futebol',price:159.9,stock:0,status:'esgotado',img:'🎽'},
-  {id:'p4',name:'Boné Aba Reta Bordado',cat:'acessorios',price:59.9,stock:63,status:'ativo',img:'🧢'},
-  {id:'p5',name:'Kit Uniforme Completo P-GG',cat:'uniformes',price:249.9,stock:5,status:'ativo',img:'👕'},
-  {id:'p6',name:'Meião Profissional',cat:'futebol',price:29.9,stock:210,status:'rascunho',img:'🧦'},
-  {id:'p7',name:'Caneca Personalizada',cat:'acessorios',price:39.9,stock:4,status:'ativo',img:'☕'},
-];
-
-const ORDERS = [
-  {id:'MNZ-10482',cliente:'Fernanda Costa',total:219.9,pagamento:'PIX',status:'pago',data:'14/07'},
-  {id:'MNZ-10481',cliente:'Lucas Andrade',total:89.9,pagamento:'Cartão',status:'enviado',data:'14/07'},
-  {id:'MNZ-10480',cliente:'Grupo Escolar Vera Cruz',total:3249.0,pagamento:'PIX',status:'pendente',data:'13/07'},
-  {id:'MNZ-10479',cliente:'Rafael Souza',total:159.9,pagamento:'Cartão',status:'entregue',data:'12/07'},
-  {id:'MNZ-10478',cliente:'Marina Lopes',total:59.9,pagamento:'PIX',status:'entregue',data:'12/07'},
-];
-
-const BANNERS = [
-  {id:'b1',eyebrow:'Coleção 2026',title:'Uniformes de Verdade',tab:'uniformes',bg:'linear-gradient(160deg,#0B3D91,#E5232A)'},
-  {id:'b2',eyebrow:'Nova linha',title:'Bonés & Brindes',tab:'acessorios',bg:'linear-gradient(150deg,#111,#1a1a2e)'},
-  {id:'b3',eyebrow:'Performance',title:'Corra Mais Longe',tab:'calcados',bg:'linear-gradient(160deg,#E5232A,#111)'},
-  {id:'b4',eyebrow:'Frete grátis',title:'Futebol É Aqui',tab:'futebol',bg:'linear-gradient(155deg,#0B3D91,#111)'},
-];
-
-const COUPONS = [
-  {code:'VOLTAAULA10',desc:'10% em uniformes escolares',uses:84,limit:200,status:'ativo'},
-  {code:'FRETEGRATIS',desc:'Frete grátis acima de R$150',uses:312,limit:null,status:'ativo'},
-  {code:'TIME2026',desc:'15% em kits de futebol',uses:47,limit:100,status:'pausado'},
-];
-
-const TEAM = [
-  {name:'Matheus Nunes',role:'Admin',email:'matheus@grupomnz.com.br',access:'Total'},
-  {name:'Carla Reis',role:'Marketing',email:'carla@grupomnz.com.br',access:'Banners & Produtos'},
-  {name:'Diego Farias',role:'Estoque',email:'diego@grupomnz.com.br',access:'Produtos & Estoque'},
-];
-
-const CUSTOMERS = [
-  {name:'Fernanda Costa',email:'fernanda.costa@gmail.com',phone:'(45) 99123-4567',city:'Palotina/PR',orders:6,spent:1247.4,tag:'Recorrente'},
-  {name:'Grupo Escolar Vera Cruz',email:'compras@veracruz.edu.br',phone:'(45) 99876-1122',city:'Toledo/PR',orders:14,spent:18420.0,tag:'Atacado'},
-  {name:'Lucas Andrade',email:'lucas.andrade@hotmail.com',phone:'(44) 98877-3344',city:'Maringá/PR',orders:2,spent:189.8,tag:'Novo'},
-  {name:'Rafael Souza',email:'rsouza91@outlook.com',phone:'(45) 99234-8890',city:'Palotina/PR',orders:9,spent:2103.5,tag:'Recorrente'},
-  {name:'Marina Lopes',email:'marinalopes@gmail.com',phone:'(46) 99911-0033',city:'Assis Chateaubriand/PR',orders:1,spent:59.9,tag:'Novo'},
-];
-
-const SHIPPING_ZONES = [
-  {region:'Palotina e região (até 50km)',prazo:'1-2 dias úteis',frete:'Grátis acima de R$150',metodo:'Entrega própria'},
-  {region:'Paraná (demais cidades)',prazo:'3-5 dias úteis',frete:'Calculado por CEP',metodo:'Correios / PAC'},
-  {region:'Sul e Sudeste',prazo:'5-8 dias úteis',frete:'Calculado por CEP',metodo:'Correios / Sedex'},
-  {region:'Demais regiões do Brasil',prazo:'8-15 dias úteis',frete:'Calculado por CEP',metodo:'Transportadora'},
-];
-
-const PAYMENT_METHODS = [
-  {name:'PIX',taxa:'0,99%',status:'ativo',gateway:'Mercado Pago'},
-  {name:'Cartão de crédito (até 12x)',taxa:'3,49% + parcela',status:'ativo',gateway:'Mercado Pago'},
-  {name:'Boleto bancário',taxa:'R$ 2,90 fixo',status:'ativo',gateway:'Mercado Pago'},
-  {name:'Carteira de crédito (loja)',taxa:'0%',status:'pausado',gateway:'Interno'},
-];
-
-const REPORTS_MONTHLY = [
-  {mes:'Fev/26',vendas:38200},{mes:'Mar/26',vendas:41750},{mes:'Abr/26',vendas:35980},
-  {mes:'Mai/26',vendas:47100},{mes:'Jun/26',vendas:52300},{mes:'Jul/26',vendas:44892},
-];
-
-const TOP_PRODUCTS_REPORT = [
-  {name:'Camisa Uniforme Escolar Azul',vendidos:284,receita:25531.6},
-  {name:'Chuteira Society Performance',vendidos:156,receita:34304.4},
-  {name:'Kit Uniforme Completo P-GG',vendidos:98,receita:24490.2},
-  {name:'Boné Aba Reta Bordado',vendidos:211,receita:12639.9},
-];
-
-const BRANDS = [
-  {name:'Meinerz',produtos:66,destaque:true},{name:'Nike',produtos:7,destaque:true},
-  {name:'Adidas',produtos:8,destaque:true},{name:'Puma',produtos:25,destaque:false},
-  {name:'New Balance',produtos:19,destaque:false},{name:'Penalty',produtos:12,destaque:false},
-];
-
-const INTEGRATIONS = [
-  {name:'WhatsApp Business',desc:'Botão de contato e recuperação de carrinho',status:'conectado',icon:'💬'},
-  {name:'Webhook de pedidos',desc:'Envia evento a cada novo pedido pago',status:'conectado',icon:'🔗'},
-  {name:'Webservice de estoque',desc:'Sincroniza estoque com o ERP',status:'atenção',icon:'📦'},
-  {name:'E-mail marketing',desc:'Dispara campanhas via Newsletter',status:'desconectado',icon:'✉️'},
-  {name:'Google Analytics / Meta Pixel',desc:'Rastreamento de conversões',status:'conectado',icon:'📊'},
-];
+const money = v => (Number(v)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+function badge(status){ return `<span class="badge b-${String(status).replace(/\s+/g,'')}">${status}</span>`; }
+function initials(name){ return (name||'').split(' ').map(n=>n[0]).slice(0,2).join(''); }
+function esc(s){ return (s??'').toString().replace(/"/g,'&quot;'); }
 
 /* ======================= NAV ======================= */
 const NAV = [
-  {group:'Visão geral', items:[
-    {id:'dashboard',label:'Painel',icon:'dashboard'},
-  ]},
+  {group:'Visão geral', items:[{id:'dashboard',label:'Painel',icon:'dashboard'}]},
   {group:'Catálogo', items:[
     {id:'produtos',label:'Produtos',icon:'package'},
     {id:'categorias',label:'Categorias',icon:'tags'},
@@ -153,7 +62,6 @@ const NAV = [
     {id:'equipe',label:'Equipe',icon:'users'},
   ]},
 ];
-
 const SECTION_META = {
   dashboard:['Painel geral','Visão rápida da loja hoje'],
   produtos:['Produtos','O que aparece no catálogo do app'],
@@ -171,108 +79,194 @@ const SECTION_META = {
   equipe:['Equipe','Acessos ao painel'],
 };
 
-function badge(status){ return `<span class="badge b-${status.replace(/\s+/g,'')}">${status}</span>`; }
-function initials(name){ return name.split(' ').map(n=>n[0]).slice(0,2).join(''); }
+/* ======================= DB CACHE + GENERIC HELPERS ======================= */
+const DB = {
+  categories:null, brands:null, products:null, banners:null, customers:null,
+  orders:null, coupons:null, shippingZones:null, paymentMethods:null,
+  fiscal:null, invoices:null, integrations:null, team:null, appearance:null,
+};
 
-/* ======================= RENDER NAV ======================= */
-function renderNav(active){
-  const el = document.getElementById('nav');
-  el.innerHTML = NAV.map(g => `
-    <div class="nav-group-label">${g.group}</div>
-    ${g.items.map(n => `
-      <button data-id="${n.id}" class="${active===n.id?'active':''}">
-        ${ic[n.icon]} ${n.label} <span class="dot"></span>
-      </button>
-    `).join('')}
-  `).join('');
-  el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => setActive(b.dataset.id)));
+function toast(msg, isError){
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = `position:fixed;bottom:20px;right:20px;background:${isError?'#ef4444':'#111827'};color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:600;z-index:100;box-shadow:0 8px 20px rgba(0,0,0,.2)`;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 2600);
 }
 
-/* ======================= SECTIONS ======================= */
+async function dbSelect(table, select='*', opts={}){
+  let q = supabaseClient.from(table).select(select);
+  if(opts.order) q = q.order(opts.order, {ascending: opts.asc !== false});
+  if(opts.eq) Object.entries(opts.eq).forEach(([k,v])=>{ q = q.eq(k,v); });
+  const { data, error } = await q;
+  if(error){ console.error(`Erro lendo ${table}:`, error); toast('Erro ao carregar '+table+': '+error.message, true); return []; }
+  return data;
+}
+async function dbInsert(table, payload){
+  const { data, error } = await supabaseClient.from(table).insert(payload).select();
+  if(error){ toast('Erro ao salvar: '+error.message, true); return null; }
+  toast('Salvo!');
+  return data[0];
+}
+async function dbUpdate(table, id, payload){
+  const { data, error } = await supabaseClient.from(table).update(payload).eq('id', id).select();
+  if(error){ toast('Erro ao salvar: '+error.message, true); return null; }
+  toast('Salvo!');
+  return data[0];
+}
+async function dbDelete(table, id){
+  const { error } = await supabaseClient.from(table).delete().eq('id', id);
+  if(error){ toast('Erro ao excluir: '+error.message, true); return false; }
+  toast('Excluído.');
+  return true;
+}
+
+/* ======================= LOADERS (um por seção) ======================= */
+async function loadCategories(){ DB.categories = await dbSelect('categories','*',{order:'position'}); }
+async function loadBrands(){ DB.brands = await dbSelect('brands','*',{order:'name'}); }
+async function loadProducts(){
+  const rows = await dbSelect('products','id,name,price,status,sku,category_id,brand_id,categories(slug,label),product_variants(id,stock)');
+  DB.products = rows.map(p => ({
+    id:p.id, name:p.name, price:Number(p.price), status:p.status, sku:p.sku,
+    category_id:p.category_id, brand_id:p.brand_id,
+    catLabel: p.categories?.label || '—',
+    stock: (p.product_variants||[]).reduce((s,v)=>s+(v.stock||0),0),
+    variantId: p.product_variants?.[0]?.id || null,
+  }));
+}
+async function loadBanners(){ DB.banners = await dbSelect('banners','*,categories(slug,label)',{order:'position'}); }
+async function loadCustomers(){ DB.customers = await dbSelect('customers','*',{order:'created_at',asc:false}); }
+async function loadOrders(){
+  const rows = await dbSelect('orders','*,customers(name)',{order:'created_at',asc:false});
+  DB.orders = rows.map(o=>({...o, clienteNome:o.customers?.name || 'Cliente removido'}));
+}
+async function loadCoupons(){ DB.coupons = await dbSelect('coupons','*',{order:'created_at',asc:false}); }
+async function loadShipping(){ DB.shippingZones = await dbSelect('shipping_zones','*',{order:'position'}); }
+async function loadPayments(){ DB.paymentMethods = await dbSelect('payment_methods','*',{order:'name'}); }
+async function loadFiscal(){
+  const rows = await dbSelect('fiscal_config','*');
+  DB.fiscal = rows[0] || null;
+  DB.invoices = await dbSelect('invoices','*,orders(order_number)',{order:'issued_at',asc:false});
+}
+async function loadIntegrations(){ DB.integrations = await dbSelect('integrations','*',{order:'name'}); }
+async function loadTeam(){ DB.team = await dbSelect('team_members','*',{order:'invited_at'}); }
+async function loadAppearance(){
+  const rows = await dbSelect('app_appearance','*');
+  DB.appearance = rows[0] || null;
+}
+
+const LOADERS = {
+  produtos: async()=>{ if(!DB.categories) await loadCategories(); if(!DB.brands) await loadBrands(); await loadProducts(); },
+  categorias: loadCategories,
+  marcas: loadBrands,
+  banners: async()=>{ if(!DB.categories) await loadCategories(); await loadBanners(); },
+  aparencia: loadAppearance,
+  pedidos: loadOrders,
+  clientes: loadCustomers,
+  cupons: loadCoupons,
+  frete: async()=>{ await loadShipping(); await loadPayments(); },
+  fiscal: loadFiscal,
+  integracoes: loadIntegrations,
+  relatorios: async()=>{ await loadOrders(); },
+  equipe: loadTeam,
+};
+
+/* ======================= GENERIC FORM DRAWER ======================= */
+function fieldHtml(f){
+  const val = f.value ?? '';
+  if(f.type==='select'){
+    return `<div class="field"><label>${f.label}</label><select id="${f.id}">${f.options.map(o=>`<option value="${esc(o.value)}" ${String(o.value)===String(val)?'selected':''}>${o.label}</option>`).join('')}</select></div>`;
+  }
+  if(f.type==='checkbox'){
+    return `<div class="row-flex" style="justify-content:space-between;padding:8px 0;font-size:13px">${f.label}<label class="toggle"><input type="checkbox" id="${f.id}" ${val?'checked':''}/><span class="track"></span></label></div>`;
+  }
+  if(f.type==='textarea'){
+    return `<div class="field"><label>${f.label}</label><textarea id="${f.id}" rows="3" style="width:100%">${val}</textarea></div>`;
+  }
+  return `<div class="field"><label>${f.label}</label><input id="${f.id}" type="${f.type||'text'}" value="${esc(val)}"/></div>`;
+}
+function openFormDrawer({title, fields, onSave, onDelete}){
+  const html = `
+    <div class="drawer-head"><h3>${title}</h3><button class="icon-btn" onclick="closeDrawer()">${ic.x}</button></div>
+    <div class="drawer-body">${fields.map(fieldHtml).join('')}</div>
+    <div class="drawer-foot">
+      ${onDelete ? `<button class="btn-danger-ghost icon-btn" id="drawer-del-btn" style="border:1px solid var(--border);border-radius:9px">${ic.trash}</button>` : ''}
+      <button class="btn btn-outline" onclick="closeDrawer()">Cancelar</button>
+      <button class="btn btn-primary" id="drawer-save-btn">Salvar</button>
+    </div>
+  `;
+  openDrawer(html);
+  document.getElementById('drawer-save-btn').addEventListener('click', async ()=>{
+    const values = {};
+    fields.forEach(f=>{
+      const el = document.getElementById(f.id);
+      values[f.id] = f.type==='checkbox' ? el.checked : el.value;
+    });
+    await onSave(values);
+  });
+  if(onDelete){
+    document.getElementById('drawer-del-btn').addEventListener('click', async ()=>{
+      if(confirm('Tem certeza que quer excluir? Essa ação não pode ser desfeita.')) await onDelete();
+    });
+  }
+}
+
+/* ======================= DASHBOARD ======================= */
 function Dashboard(){
+  const products = DB.products || [];
+  const orders = DB.orders || [];
+  const pendentes = orders.filter(o=>o.status==='pendente').length;
+  const ativos = products.filter(p=>p.status==='ativo').length;
+  const criticos = products.filter(p=>p.stock<=8);
+  const vendasHoje = orders
+    .filter(o=> new Date(o.created_at).toDateString() === new Date().toDateString())
+    .reduce((s,o)=>s+Number(o.total||0),0);
+
   const stats = [
-    {label:'Vendas hoje',value:'R$ 4.892',delta:'+12%',cls:'up',icon:ic.up},
-    {label:'Pedidos pendentes',value:'7',delta:'-2',cls:'down',icon:ic.down},
-    {label:'Produtos ativos',value:'94',delta:'+3',cls:'up',icon:ic.up},
-    {label:'Estoque baixo',value:'4',delta:'atenção',cls:'warn',icon:ic.alert},
+    {label:'Vendas hoje',value:money(vendasHoje),icon:ic.up,cls:'up'},
+    {label:'Pedidos pendentes',value:String(pendentes),icon:ic.alert,cls:'warn'},
+    {label:'Produtos ativos',value:String(ativos),icon:ic.up,cls:'up'},
+    {label:'Estoque baixo',value:String(criticos.length),icon:ic.alert,cls:'warn'},
   ];
   return `
     <div class="grid grid-4">
-      ${stats.map(s=>`
-        <div class="card">
-          <div class="stat-label">${s.label}</div>
-          <div class="stat-value">${s.value}</div>
-          <div class="stat-delta ${s.cls}">${s.icon} ${s.delta}</div>
-        </div>`).join('')}
+      ${stats.map(s=>`<div class="card"><div class="stat-label">${s.label}</div><div class="stat-value">${s.value}</div><div class="stat-delta ${s.cls}">${s.icon}</div></div>`).join('')}
     </div>
     <div class="grid grid-3" style="margin-top:16px">
       <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3>Pedidos recentes</h3>
-        </div>
+        <h3>Pedidos recentes</h3>
         <div class="divide">
-          ${ORDERS.slice(0,4).map(o=>`
+          ${orders.slice(0,5).map(o=>`
             <div class="row-flex" style="justify-content:space-between;padding:10px 0">
-              <div>
-                <div class="mono" style="font-size:11px;color:var(--muted-2)">${o.id}</div>
-                <div style="font-weight:600">${o.cliente}</div>
-              </div>
-              <div style="text-align:right">
-                <div style="font-weight:700">${money(o.total)}</div>
-                ${badge(o.status)}
-              </div>
-            </div>`).join('')}
+              <div><div class="mono" style="font-size:11px;color:var(--muted-2)">${o.order_number}</div><div style="font-weight:600">${o.clienteNome}</div></div>
+              <div style="text-align:right"><div style="font-weight:700">${money(o.total)}</div>${badge(o.status)}</div>
+            </div>`).join('') || `<p class="muted" style="font-size:13px">Nenhum pedido ainda.</p>`}
         </div>
       </div>
       <div class="card">
         <h3>Estoque crítico</h3>
-        ${PRODUCTS.filter(p=>p.stock<=8).map(p=>`
+        ${criticos.map(p=>`
           <div class="row-flex" style="margin-bottom:10px">
-            <span style="font-size:20px">${p.img}</span>
-            <div style="flex:1;min-width:0">
-              <div style="font-weight:600;font-size:13px">${p.name}</div>
-              <div style="font-size:11px;color:var(--muted-2)">${p.stock} unidades</div>
-            </div>
+            <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px">${p.name}</div><div class="muted" style="font-size:11px">${p.stock} unidades</div></div>
             <span style="width:8px;height:8px;border-radius:50%;background:#ef4444"></span>
-          </div>`).join('')}
+          </div>`).join('') || `<p class="muted" style="font-size:13px">Nenhum produto com estoque crítico.</p>`}
       </div>
     </div>
   `;
 }
 
+/* ======================= PRODUTOS ======================= */
 let prodQuery='', prodCat='all';
-let PRODUCTS_CACHE = []; // populado pelo Supabase em loadProducts()
-
-async function loadProducts(){
-  const { data, error } = await supabaseClient
-    .from('products')
-    .select('id, name, price, status, category:categories(slug), product_variants(stock)')
-    .order('created_at', { ascending:false });
-
-  if(error){ console.error('Erro ao buscar produtos:', error); return; }
-
-  PRODUCTS_CACHE = data.map(p => ({
-    id: p.id,
-    name: p.name,
-    cat: p.category?.slug || null,
-    price: Number(p.price),
-    stock: (p.product_variants||[]).reduce((s,v)=>s+v.stock, 0),
-    status: p.status,
-    img: '👕', // troque depois por p.product_images quando tiver upload de imagem
-  }));
-
-  if(active === 'produtos') renderContent();
-}
-
 function Produtos(){
-  const filtered = PRODUCTS_CACHE.filter(p => (prodCat==='all'||p.cat===prodCat) && p.name.toLowerCase().includes(prodQuery.toLowerCase()));
+  const list = DB.products || [];
+  const filtered = list.filter(p => (prodCat==='all'||p.category_id===prodCat) && p.name.toLowerCase().includes(prodQuery.toLowerCase()));
   return `
     <div class="toolbar">
       <div class="row-flex" style="flex-wrap:wrap">
-        <div class="search-wrap">${ic.search}<input id="prod-search" placeholder="Buscar produto..." value="${prodQuery}"/></div>
+        <div class="search-wrap">${ic.search}<input id="prod-search" placeholder="Buscar produto..." value="${esc(prodQuery)}"/></div>
         <select id="prod-cat">
           <option value="all">Todas categorias</option>
-          ${CATEGORIES.map(c=>`<option value="${c.id}" ${prodCat===c.id?'selected':''}>${c.label}</option>`).join('')}
+          ${(DB.categories||[]).map(c=>`<option value="${c.id}" ${prodCat===c.id?'selected':''}>${c.label}</option>`).join('')}
         </select>
       </div>
       <button class="btn btn-primary" onclick="openProductDrawer(null)">${ic.plus} Novo produto</button>
@@ -283,16 +277,13 @@ function Produtos(){
         <tbody>
           ${filtered.length ? filtered.map(p=>`
             <tr>
-              <td><div class="row-flex"><div style="width:36px;height:36px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:18px">${p.img}</div><span style="font-weight:600">${p.name}</span></div></td>
-              <td class="muted">${CATEGORIES.find(c=>c.id===p.cat)?.label||''}</td>
+              <td style="font-weight:600">${p.name}</td>
+              <td class="muted">${p.catLabel}</td>
               <td style="font-weight:700">${money(p.price)}</td>
               <td style="${p.stock<=8?'color:#ef4444;font-weight:700':''}">${p.stock}</td>
               <td>${badge(p.status)}</td>
-              <td style="text-align:right">
-                <button class="icon-btn" onclick='openProductDrawer(${JSON.stringify(p)})'>${ic.pencil}</button>
-                <button class="btn-danger-ghost icon-btn">${ic.trash}</button>
-              </td>
-            </tr>`).join('') : `<tr><td colspan="6" class="empty-td">Nenhum produto encontrado.</td></tr>`}
+              <td style="text-align:right"><button class="icon-btn" onclick='openProductDrawer(${JSON.stringify(p)})'>${ic.pencil}</button></td>
+            </tr>`).join('') : `<tr><td colspan="6" class="empty-td">${DB.products===null?'Carregando...':'Nenhum produto encontrado.'}</td></tr>`}
         </tbody>
       </table>
     </div>
@@ -304,132 +295,178 @@ function bindProdutosEvents(){
   if(c) c.addEventListener('change', e=>{prodCat=e.target.value; renderContent();});
 }
 function openProductDrawer(p){
-  const isNew = !p;
-  const html = `
-    <div class="drawer-head"><h3>${isNew?'Novo produto':'Editar produto'}</h3><button class="icon-btn" onclick="closeDrawer()">${ic.x}</button></div>
-    <div class="drawer-body">
-      <div class="upload-box">${isNew?'📷':p.img}</div>
-      <div class="field"><label>Nome do produto</label><input value="${isNew?'':p.name}"/></div>
-      <div class="grid grid-2">
-        <div class="field"><label>Preço (R$)</label><input value="${isNew?'':p.price}"/></div>
-        <div class="field"><label>Estoque</label><input value="${isNew?'':p.stock}"/></div>
-      </div>
-      <div class="field"><label>Categoria</label>
-        <select>${CATEGORIES.map(c=>`<option ${!isNew&&p.cat===c.id?'selected':''}>${c.label}</option>`).join('')}</select>
-      </div>
-      <div class="field"><label>Tamanhos disponíveis</label>
-        <div class="sizes">${['PP','P','M','G','GG'].map(s=>`<button class="size-chip">${s}</button>`).join('')}</div>
-      </div>
-      <div class="field"><label>Status</label>
-        <select>
-          <option value="ativo" ${!isNew&&p.status==='ativo'?'selected':''}>Ativo (visível no app)</option>
-          <option value="rascunho" ${isNew||p.status==='rascunho'?'selected':''}>Rascunho (oculto)</option>
-          <option value="esgotado" ${!isNew&&p.status==='esgotado'?'selected':''}>Esgotado</option>
-        </select>
-      </div>
-    </div>
-    <div class="drawer-foot">
-      <button class="btn btn-outline" onclick="closeDrawer()">Cancelar</button>
-      <button class="btn btn-primary" onclick="closeDrawer()">Salvar no app</button>
-    </div>
-  `;
-  openDrawer(html);
+  openFormDrawer({
+    title: p ? 'Editar produto' : 'Novo produto',
+    fields: [
+      {id:'f-name', label:'Nome do produto', value:p?.name},
+      {id:'f-price', label:'Preço (R$)', type:'number', value:p?.price},
+      {id:'f-stock', label:'Estoque', type:'number', value:p?.stock},
+      {id:'f-cat', label:'Categoria', type:'select', value:p?.category_id, options:(DB.categories||[]).map(c=>({value:c.id,label:c.label}))},
+      {id:'f-status', label:'Status', type:'select', value:p?.status||'rascunho', options:[
+        {value:'ativo',label:'Ativo (visível no app)'},{value:'rascunho',label:'Rascunho (oculto)'},{value:'esgotado',label:'Esgotado'}]},
+    ],
+    onSave: async (v)=>{
+      const slug = v['f-name'].toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // remove acentos
+        .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') + '-' + Date.now().toString(36);
+      const payload = { name:v['f-name'], slug, price:Number(v['f-price'])||0, category_id:v['f-cat']||null, status:v['f-status'] };
+      let saved;
+      if(p){ saved = await dbUpdate('products', p.id, payload); }
+      else { saved = await dbInsert('products', payload); }
+      if(!saved) return;
+      const stockVal = Number(v['f-stock'])||0;
+      if(p?.variantId){ await dbUpdate('product_variants', p.variantId, {stock:stockVal}); }
+      else { await dbInsert('product_variants', {product_id:saved.id, stock:stockVal}); }
+      closeDrawer(); await loadProducts(); renderContent();
+    },
+    onDelete: p ? async ()=>{ if(await dbDelete('products', p.id)){ closeDrawer(); await loadProducts(); renderContent(); } } : null,
+  });
 }
 
+/* ======================= CATEGORIAS ======================= */
 function Categorias(){
+  const list = DB.categories || [];
   return `
     <div class="toolbar">
       <p class="muted" style="font-size:13px">Essas categorias aparecem como abas na tela inicial do app.</p>
-      <button class="btn btn-primary">${ic.plus} Nova categoria</button>
+      <button class="btn btn-primary" onclick="openCategoriaDrawer(null)">${ic.plus} Nova categoria</button>
     </div>
     <div class="grid grid-2">
-      ${CATEGORIES.map(c=>`
+      ${list.map(c=>`
         <div class="card row-flex" style="padding:14px 18px">
-          <span style="color:var(--muted-2);cursor:grab">${ic.grip}</span>
-          <span style="width:36px;height:36px;border-radius:9px;background:${c.color};flex-shrink:0"></span>
-          <div style="flex:1"><div style="font-weight:700">${c.label}</div><div class="muted" style="font-size:12px">${c.count} produtos</div></div>
-          <button class="icon-btn">${ic.pencil}</button>
-        </div>`).join('')}
+          <span style="width:36px;height:36px;border-radius:9px;background:${c.color||'#999'};flex-shrink:0"></span>
+          <div style="flex:1"><div style="font-weight:700">${c.label}</div><div class="muted" style="font-size:12px">/${c.slug}</div></div>
+          <button class="icon-btn" onclick='openCategoriaDrawer(${JSON.stringify(c)})'>${ic.pencil}</button>
+        </div>`).join('') || `<p class="muted">${DB.categories===null?'Carregando...':'Nenhuma categoria ainda.'}</p>`}
     </div>
   `;
 }
+function openCategoriaDrawer(c){
+  openFormDrawer({
+    title: c ? 'Editar categoria' : 'Nova categoria',
+    fields: [
+      {id:'f-label', label:'Nome', value:c?.label},
+      {id:'f-slug', label:'Slug (identificador, sem espaço)', value:c?.slug},
+      {id:'f-color', label:'Cor (hex)', type:'color', value:c?.color||'#0B3D91'},
+    ],
+    onSave: async (v)=>{
+      const payload = {label:v['f-label'], slug:v['f-slug'].toLowerCase().replace(/\s+/g,'-'), color:v['f-color']};
+      if(c) await dbUpdate('categories', c.id, payload); else await dbInsert('categories', payload);
+      closeDrawer(); await loadCategories(); renderContent();
+    },
+    onDelete: c ? async ()=>{ if(await dbDelete('categories', c.id)){ closeDrawer(); await loadCategories(); renderContent(); } } : null,
+  });
+}
 
+/* ======================= MARCAS ======================= */
 function Marcas(){
+  const list = DB.brands || [];
   return `
     <div class="toolbar">
       <p class="muted" style="font-size:13px">Marcas exibidas como filtro no catálogo do app.</p>
-      <button class="btn btn-primary">${ic.plus} Nova marca</button>
+      <button class="btn btn-primary" onclick="openMarcaDrawer(null)">${ic.plus} Nova marca</button>
     </div>
     <div class="table-card">
       <table>
-        <thead><tr><th>Marca</th><th>Produtos</th><th>Destaque no app</th><th style="text-align:right">Ações</th></tr></thead>
+        <thead><tr><th>Marca</th><th>Destaque no app</th><th style="text-align:right">Ações</th></tr></thead>
         <tbody>
-          ${BRANDS.map(b=>`
+          ${list.map(b=>`
             <tr>
               <td style="font-weight:600">${b.name}</td>
-              <td class="muted">${b.produtos}</td>
-              <td>${b.destaque? `<span style="color:#047857;font-size:12px;font-weight:700;display:inline-flex;gap:4px;align-items:center">${ic.check} Sim</span>` : `<span class="muted" style="font-size:12px">Não</span>`}</td>
-              <td style="text-align:right"><button class="icon-btn">${ic.pencil}</button></td>
-            </tr>`).join('')}
+              <td>${b.featured? `<span style="color:#047857;font-size:12px;font-weight:700;display:inline-flex;gap:4px;align-items:center">${ic.check} Sim</span>` : `<span class="muted" style="font-size:12px">Não</span>`}</td>
+              <td style="text-align:right"><button class="icon-btn" onclick='openMarcaDrawer(${JSON.stringify(b)})'>${ic.pencil}</button></td>
+            </tr>`).join('') || `<tr><td colspan="3" class="empty-td">${DB.brands===null?'Carregando...':'Nenhuma marca ainda.'}</td></tr>`}
         </tbody>
       </table>
     </div>
   `;
 }
+function openMarcaDrawer(b){
+  openFormDrawer({
+    title: b ? 'Editar marca' : 'Nova marca',
+    fields: [
+      {id:'f-name', label:'Nome', value:b?.name},
+      {id:'f-featured', label:'Destaque no app', type:'checkbox', value:b?.featured||false},
+    ],
+    onSave: async (v)=>{
+      const payload = {name:v['f-name'], featured:v['f-featured']};
+      if(b) await dbUpdate('brands', b.id, payload); else await dbInsert('brands', payload);
+      closeDrawer(); await loadBrands(); renderContent();
+    },
+    onDelete: b ? async ()=>{ if(await dbDelete('brands', b.id)){ closeDrawer(); await loadBrands(); renderContent(); } } : null,
+  });
+}
 
+/* ======================= BANNERS ======================= */
 function Banners(){
+  const list = DB.banners || [];
   return `
     <div class="toolbar">
-      <p class="muted" style="font-size:13px">Controla os slides do carrossel na home do app — arraste para reordenar.</p>
-      <button class="btn btn-primary">${ic.plus} Novo banner</button>
+      <p class="muted" style="font-size:13px">Controla os slides do carrossel na home do app.</p>
+      <button class="btn btn-primary" onclick="openBannerDrawer(null)">${ic.plus} Novo banner</button>
     </div>
     <div class="grid grid-2">
-      ${BANNERS.map(b=>`
+      ${list.map(b=>`
         <div class="banner-card">
-          <div class="banner-hero" style="background:${b.bg}">
-            <span style="position:absolute;top:10px;right:10px;opacity:.6">${ic.grip}</span>
-            <div class="eyebrow">${b.eyebrow}</div>
+          <div class="banner-hero" style="background:${b.bg_css||'#111'}">
+            <div class="eyebrow">${b.eyebrow||''}</div>
             <div class="title">${b.title}</div>
           </div>
           <div class="banner-foot">
-            <span class="muted">Leva para: <b style="color:#3f3f46">${CATEGORIES.find(c=>c.id===b.tab)?.label}</b></span>
-            <button class="icon-btn">${ic.pencil}</button>
+            <span class="muted">Leva para: <b style="color:#3f3f46">${b.categories?.label||'—'}</b></span>
+            <button class="icon-btn" onclick='openBannerDrawer(${JSON.stringify(b)})'>${ic.pencil}</button>
           </div>
-        </div>`).join('')}
+        </div>`).join('') || `<p class="muted">${DB.banners===null?'Carregando...':'Nenhum banner ainda.'}</p>`}
     </div>
   `;
 }
+function openBannerDrawer(b){
+  openFormDrawer({
+    title: b ? 'Editar banner' : 'Novo banner',
+    fields: [
+      {id:'f-eyebrow', label:'Selo (texto pequeno acima)', value:b?.eyebrow},
+      {id:'f-title', label:'Título', value:b?.title},
+      {id:'f-bg', label:'Fundo (cor ou gradient CSS)', value:b?.bg_css||'linear-gradient(160deg,#0B3D91,#E5232A)'},
+      {id:'f-cat', label:'Categoria de destino', type:'select', value:b?.category_id, options:(DB.categories||[]).map(c=>({value:c.id,label:c.label}))},
+    ],
+    onSave: async (v)=>{
+      const payload = {eyebrow:v['f-eyebrow'], title:v['f-title'], bg_css:v['f-bg'], category_id:v['f-cat']||null};
+      if(b) await dbUpdate('banners', b.id, payload); else await dbInsert('banners', payload);
+      closeDrawer(); await loadBanners(); renderContent();
+    },
+    onDelete: b ? async ()=>{ if(await dbDelete('banners', b.id)){ closeDrawer(); await loadBanners(); renderContent(); } } : null,
+  });
+}
 
+/* ======================= APARÊNCIA ======================= */
 function Aparencia(){
+  const a = DB.appearance || {primary_color:'#0B3D91', accent_color:'#E5232A', show_search_bar:true, center_logo:true, cep_modal_on_open:false};
   return `
     <div class="grid grid-2">
       <div>
         <div class="card" style="margin-bottom:16px">
           <h3>Identidade visual</h3>
-          <div class="upload-box" style="aspect-ratio:3/1">Logo do app (arraste ou clique)</div>
           <div class="grid grid-2">
             <div class="field"><label>Cor principal</label>
-              <div class="row-flex"><input type="color" id="c-primary" value="#0B3D91" style="width:36px;height:36px;padding:2px;border-radius:8px"/><input id="c-primary-text" value="#0B3D91" class="mono" style="flex:1"/></div>
+              <div class="row-flex"><input type="color" id="c-primary" value="${a.primary_color}" style="width:36px;height:36px;padding:2px;border-radius:8px"/><input id="c-primary-text" value="${a.primary_color}" class="mono" style="flex:1"/></div>
             </div>
             <div class="field"><label>Cor de destaque</label>
-              <div class="row-flex"><input type="color" id="c-accent" value="#E5232A" style="width:36px;height:36px;padding:2px;border-radius:8px"/><input id="c-accent-text" value="#E5232A" class="mono" style="flex:1"/></div>
+              <div class="row-flex"><input type="color" id="c-accent" value="${a.accent_color}" style="width:36px;height:36px;padding:2px;border-radius:8px"/><input id="c-accent-text" value="${a.accent_color}" class="mono" style="flex:1"/></div>
             </div>
           </div>
         </div>
         <div class="card" style="margin-bottom:16px">
           <h3>Comportamento</h3>
-          ${[['Exibir busca fixa no topo',true],['Modal de CEP na abertura do app',false],['Centralizar logo',true]].map(([label,val])=>`
-            <div class="row-flex" style="justify-content:space-between;padding:6px 0;font-size:13px">
-              <span>${label}</span>
-              <label class="toggle"><input type="checkbox" ${val?'checked':''}/><span class="track"></span></label>
-            </div>`).join('')}
+          <div class="row-flex" style="justify-content:space-between;padding:6px 0;font-size:13px">Exibir busca fixa no topo<label class="toggle"><input type="checkbox" id="c-search" ${a.show_search_bar?'checked':''}/><span class="track"></span></label></div>
+          <div class="row-flex" style="justify-content:space-between;padding:6px 0;font-size:13px">Modal de CEP na abertura do app<label class="toggle"><input type="checkbox" id="c-cep" ${a.cep_modal_on_open?'checked':''}/><span class="track"></span></label></div>
+          <div class="row-flex" style="justify-content:space-between;padding:6px 0;font-size:13px">Centralizar logo<label class="toggle"><input type="checkbox" id="c-center" ${a.center_logo?'checked':''}/><span class="track"></span></label></div>
         </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:11px">Publicar alterações no app</button>
+        <button class="btn btn-primary" id="save-aparencia" style="width:100%;justify-content:center;padding:11px">Publicar alterações no app</button>
       </div>
       <div>
         <div class="phone">
-          <div class="phone-bar" id="phone-bar" style="background:#0B3D91">Meinerz Esportes</div>
-          <div class="phone-hero" id="phone-hero" style="background:linear-gradient(160deg,#0B3D91,#E5232A)">
+          <div class="phone-bar" id="phone-bar" style="background:${a.primary_color}">Meinerz Esportes</div>
+          <div class="phone-hero" id="phone-hero" style="background:linear-gradient(160deg, ${a.primary_color}, ${a.accent_color})">
             <div class="eyebrow">Coleção 2026</div>
             <div class="title">Uniformes de Verdade</div>
           </div>
@@ -451,29 +488,45 @@ function bindAparenciaEvents(){
   ca.addEventListener('input', ()=>{cat.value=ca.value; update();});
   cpt.addEventListener('input', ()=>{cp.value=cpt.value; update();});
   cat.addEventListener('input', ()=>{ca.value=cat.value; update();});
+  document.getElementById('save-aparencia').addEventListener('click', async ()=>{
+    const payload = {
+      primary_color: cpt.value, accent_color: cat.value,
+      show_search_bar: document.getElementById('c-search').checked,
+      cep_modal_on_open: document.getElementById('c-cep').checked,
+      center_logo: document.getElementById('c-center').checked,
+    };
+    if(DB.appearance?.id) await dbUpdate('app_appearance', DB.appearance.id, payload);
+    else await dbInsert('app_appearance', payload);
+    await loadAppearance();
+  });
 }
 
+/* ======================= PEDIDOS ======================= */
 let orderFilter='all';
 function Pedidos(){
-  const statuses=['all','pendente','pago','enviado','entregue'];
-  const filtered = ORDERS.filter(o=>orderFilter==='all'||o.status===orderFilter);
+  const statuses=['all','pendente','pago','enviado','entregue','cancelado'];
+  const list = DB.orders || [];
+  const filtered = list.filter(o=>orderFilter==='all'||o.status===orderFilter);
   return `
     <div class="filters" style="margin-bottom:14px">
       ${statuses.map(s=>`<button class="chip ${orderFilter===s?'active':''}" data-s="${s}">${s==='all'?'Todos':s}</button>`).join('')}
     </div>
     <div class="table-card">
       <table>
-        <thead><tr><th>Pedido</th><th>Cliente</th><th>Pagamento</th><th>Total</th><th>Data</th><th>Status</th></tr></thead>
+        <thead><tr><th>Pedido</th><th>Cliente</th><th>Pagamento</th><th>Total</th><th>Status</th></tr></thead>
         <tbody>
-          ${filtered.map(o=>`
+          ${filtered.length ? filtered.map(o=>`
             <tr>
-              <td class="mono" style="font-size:11.5px;color:var(--muted)">${o.id}</td>
-              <td style="font-weight:600">${o.cliente}</td>
-              <td class="muted">${o.pagamento}</td>
+              <td class="mono" style="font-size:11.5px;color:var(--muted)">${o.order_number}</td>
+              <td style="font-weight:600">${o.clienteNome}</td>
+              <td class="muted">${o.payment_method||'—'}</td>
               <td style="font-weight:700">${money(o.total)}</td>
-              <td class="muted">${o.data}</td>
-              <td>${badge(o.status)}</td>
-            </tr>`).join('')}
+              <td>
+                <select data-order="${o.id}" class="order-status-select" style="font-size:12px;padding:4px 6px">
+                  ${statuses.filter(s=>s!=='all').map(s=>`<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
+                </select>
+              </td>
+            </tr>`).join('') : `<tr><td colspan="5" class="empty-td">${DB.orders===null?'Carregando...':'Nenhum pedido ainda.'}</td></tr>`}
         </tbody>
       </table>
     </div>
@@ -481,25 +534,35 @@ function Pedidos(){
 }
 function bindPedidosEvents(){
   document.querySelectorAll('.chip[data-s]').forEach(b=>b.addEventListener('click',()=>{orderFilter=b.dataset.s; renderContent();}));
+  document.querySelectorAll('.order-status-select').forEach(sel=>{
+    sel.addEventListener('change', async ()=>{
+      await dbUpdate('orders', sel.dataset.order, {status:sel.value});
+      await loadOrders(); renderContent();
+    });
+  });
 }
 
+/* ======================= CLIENTES ======================= */
 let custQuery='';
 function Clientes(){
-  const filtered = CUSTOMERS.filter(c=>c.name.toLowerCase().includes(custQuery.toLowerCase()));
+  const list = DB.customers || [];
+  const filtered = list.filter(c=>c.name.toLowerCase().includes(custQuery.toLowerCase()));
   return `
-    <div class="search-wrap" style="margin-bottom:14px">${ic.search}<input id="cust-search" placeholder="Buscar cliente..." value="${custQuery}"/></div>
+    <div class="toolbar">
+      <div class="search-wrap">${ic.search}<input id="cust-search" placeholder="Buscar cliente..." value="${esc(custQuery)}"/></div>
+      <button class="btn btn-primary" onclick="openCustomerDrawer(null)">${ic.plus} Novo cliente</button>
+    </div>
     <div class="table-card">
       <table>
-        <thead><tr><th>Cliente</th><th>Cidade</th><th>Pedidos</th><th>Total gasto</th><th>Perfil</th></tr></thead>
+        <thead><tr><th>Cliente</th><th>Cidade</th><th>Perfil</th><th style="text-align:right">Ações</th></tr></thead>
         <tbody>
-          ${filtered.map((c,i)=>`
-            <tr style="cursor:pointer" onclick='openCustomerDrawer(${JSON.stringify(c)})'>
+          ${filtered.length ? filtered.map(c=>`
+            <tr>
               <td><div style="font-weight:600">${c.name}</div><div class="muted" style="font-size:11.5px">${c.email}</div></td>
-              <td class="muted">${c.city}</td>
-              <td>${c.orders}</td>
-              <td style="font-weight:700">${money(c.spent)}</td>
+              <td class="muted">${c.city||'—'}${c.state?'/'+c.state:''}</td>
               <td><span class="badge" style="background:${c.tag==='Recorrente'?'#eff6ff':c.tag==='Atacado'?'#faf5ff':'#ecfdf5'};color:${c.tag==='Recorrente'?'#1d4ed8':c.tag==='Atacado'?'#7e22ce':'#047857'}">${c.tag}</span></td>
-            </tr>`).join('')}
+              <td style="text-align:right"><button class="icon-btn" onclick='openCustomerDrawer(${JSON.stringify(c)})'>${ic.pencil}</button></td>
+            </tr>`).join('') : `<tr><td colspan="4" class="empty-td">${DB.customers===null?'Carregando...':'Nenhum cliente ainda.'}</td></tr>`}
         </tbody>
       </table>
     </div>
@@ -510,186 +573,310 @@ function bindClientesEvents(){
   if(s) s.addEventListener('input', e=>{custQuery=e.target.value; renderContent();});
 }
 function openCustomerDrawer(c){
-  const html = `
-    <div class="drawer-head"><h3>Perfil do cliente</h3><button class="icon-btn" onclick="closeDrawer()">${ic.x}</button></div>
-    <div class="drawer-body">
-      <div class="row-flex" style="margin-bottom:16px">
-        <div class="avatar blue" style="width:48px;height:48px;font-size:15px">${initials(c.name)}</div>
-        <div><div style="font-weight:700">${c.name}</div>${badge(c.tag)}</div>
-      </div>
-      <div style="font-size:13px;color:#3f3f46;display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
-        <div class="row-flex">${ic.mail}${c.email}</div>
-        <div class="row-flex">${ic.phone}${c.phone}</div>
-        <div class="row-flex">${ic.pin}${c.city}</div>
-      </div>
-      <div class="grid grid-2">
-        <div style="background:var(--bg);border-radius:12px;padding:12px">
-          <div class="stat-label" style="font-size:10px">Pedidos</div>
-          <div style="font-size:20px;font-weight:900">${c.orders}</div>
-        </div>
-        <div style="background:var(--bg);border-radius:12px;padding:12px">
-          <div class="stat-label" style="font-size:10px">Total gasto</div>
-          <div style="font-size:20px;font-weight:900">${money(c.spent)}</div>
-        </div>
-      </div>
-    </div>
-  `;
-  openDrawer(html);
+  openFormDrawer({
+    title: c ? 'Editar cliente' : 'Novo cliente',
+    fields: [
+      {id:'f-name', label:'Nome', value:c?.name},
+      {id:'f-email', label:'E-mail', value:c?.email},
+      {id:'f-phone', label:'Telefone', value:c?.phone},
+      {id:'f-city', label:'Cidade', value:c?.city},
+      {id:'f-state', label:'Estado (UF)', value:c?.state},
+      {id:'f-tag', label:'Perfil', type:'select', value:c?.tag||'Novo', options:[{value:'Novo',label:'Novo'},{value:'Recorrente',label:'Recorrente'},{value:'Atacado',label:'Atacado'}]},
+    ],
+    onSave: async (v)=>{
+      const payload = {name:v['f-name'], email:v['f-email'], phone:v['f-phone'], city:v['f-city'], state:v['f-state'], tag:v['f-tag']};
+      if(c) await dbUpdate('customers', c.id, payload); else await dbInsert('customers', payload);
+      closeDrawer(); await loadCustomers(); renderContent();
+    },
+    onDelete: c ? async ()=>{ if(await dbDelete('customers', c.id)){ closeDrawer(); await loadCustomers(); renderContent(); } } : null,
+  });
 }
 
+/* ======================= CUPONS ======================= */
 function Cupons(){
+  const list = DB.coupons || [];
   return `
     <div class="toolbar">
       <p class="muted" style="font-size:13px">Cupons de desconto aplicáveis no checkout do app.</p>
-      <button class="btn btn-primary">${ic.plus} Novo cupom</button>
+      <button class="btn btn-primary" onclick="openCupomDrawer(null)">${ic.plus} Novo cupom</button>
     </div>
     <div class="table-card">
       <div class="divide">
-        ${COUPONS.map(c=>`
+        ${list.map(c=>`
           <div class="row-flex pad-row">
             <div class="mono" style="font-weight:800;background:var(--bg);border-radius:8px;padding:6px 12px;font-size:13px">${c.code}</div>
-            <div style="flex:1"><div style="font-size:13px">${c.desc}</div><div class="muted" style="font-size:11.5px">${c.uses} usos${c.limit?` de ${c.limit}`:' · sem limite'}</div></div>
+            <div style="flex:1"><div style="font-size:13px">${c.description||''}</div><div class="muted" style="font-size:11.5px">${c.used_count||0} usos${c.usage_limit?` de ${c.usage_limit}`:' · sem limite'}</div></div>
             ${badge(c.status)}
-            <button class="icon-btn">${ic.pencil}</button>
-          </div>`).join('')}
+            <button class="icon-btn" onclick='openCupomDrawer(${JSON.stringify(c)})'>${ic.pencil}</button>
+          </div>`).join('') || `<p class="muted pad-row">${DB.coupons===null?'Carregando...':'Nenhum cupom ainda.'}</p>`}
       </div>
     </div>
   `;
 }
+function openCupomDrawer(c){
+  openFormDrawer({
+    title: c ? 'Editar cupom' : 'Novo cupom',
+    fields: [
+      {id:'f-code', label:'Código', value:c?.code},
+      {id:'f-desc', label:'Descrição', value:c?.description},
+      {id:'f-type', label:'Tipo de desconto', type:'select', value:c?.discount_type||'percentual', options:[{value:'percentual',label:'Percentual (%)'},{value:'valor_fixo',label:'Valor fixo (R$)'},{value:'frete_gratis',label:'Frete grátis'}]},
+      {id:'f-value', label:'Valor do desconto', type:'number', value:c?.discount_value},
+      {id:'f-limit', label:'Limite de usos (vazio = sem limite)', type:'number', value:c?.usage_limit},
+      {id:'f-status', label:'Status', type:'select', value:c?.status||'ativo', options:[{value:'ativo',label:'Ativo'},{value:'pausado',label:'Pausado'},{value:'expirado',label:'Expirado'}]},
+    ],
+    onSave: async (v)=>{
+      const payload = {
+        code:v['f-code'].toUpperCase(), description:v['f-desc'], discount_type:v['f-type'],
+        discount_value:v['f-value']?Number(v['f-value']):null, usage_limit:v['f-limit']?Number(v['f-limit']):null,
+        status:v['f-status'],
+      };
+      if(c) await dbUpdate('coupons', c.id, payload); else await dbInsert('coupons', payload);
+      closeDrawer(); await loadCoupons(); renderContent();
+    },
+    onDelete: c ? async ()=>{ if(await dbDelete('coupons', c.id)){ closeDrawer(); await loadCoupons(); renderContent(); } } : null,
+  });
+}
 
+/* ======================= FRETE & PAGAMENTO ======================= */
 function Frete(){
+  const zones = DB.shippingZones || [];
+  const pays = DB.paymentMethods || [];
   return `
-    <h3 style="display:flex;align-items:center;gap:8px;margin-bottom:12px">${ic.truck} Zonas de entrega</h3>
+    <div class="toolbar"><h3 style="display:flex;align-items:center;gap:8px;margin:0">${ic.truck} Zonas de entrega</h3>
+      <button class="btn btn-primary" onclick="openZonaDrawer(null)">${ic.plus} Nova zona</button>
+    </div>
     <div class="table-card" style="margin-bottom:24px">
       <table>
         <thead><tr><th>Região</th><th>Prazo</th><th>Frete</th><th>Método</th><th style="text-align:right">Ações</th></tr></thead>
         <tbody>
-          ${SHIPPING_ZONES.map(z=>`
+          ${zones.map(z=>`
             <tr>
-              <td style="font-weight:600">${z.region}</td>
-              <td class="muted">${z.prazo}</td>
-              <td>${z.frete}</td>
-              <td class="muted">${z.metodo}</td>
-              <td style="text-align:right"><button class="icon-btn">${ic.pencil}</button></td>
-            </tr>`).join('')}
+              <td style="font-weight:600">${z.region_name}</td>
+              <td class="muted">${z.prazo_min}-${z.prazo_max} dias úteis</td>
+              <td>${z.price_type==='gratis'?'Grátis':z.price_type==='fixo'?money(z.price_value):'Calculado por CEP'}</td>
+              <td class="muted">${z.method||'—'}</td>
+              <td style="text-align:right"><button class="icon-btn" onclick='openZonaDrawer(${JSON.stringify(z)})'>${ic.pencil}</button></td>
+            </tr>`).join('') || `<tr><td colspan="5" class="empty-td">Nenhuma zona cadastrada.</td></tr>`}
         </tbody>
       </table>
     </div>
     <h3 style="display:flex;align-items:center;gap:8px;margin-bottom:12px">💳 Formas de pagamento</h3>
     <div class="table-card">
       <div class="divide">
-        ${PAYMENT_METHODS.map(m=>`
+        ${pays.map(m=>`
           <div class="row-flex pad-row">
-            <div style="flex:1"><div style="font-weight:600;font-size:13px">${m.name}</div><div class="muted" style="font-size:11.5px">Gateway: ${m.gateway} · Taxa: ${m.taxa}</div></div>
+            <div style="flex:1"><div style="font-weight:600;font-size:13px">${m.name}</div><div class="muted" style="font-size:11.5px">Gateway: ${m.gateway||'—'} · Taxa: ${m.fee_desc||'—'}</div></div>
             ${badge(m.status)}
-            <label class="toggle"><input type="checkbox" ${m.status==='ativo'?'checked':''}/><span class="track"></span></label>
-          </div>`).join('')}
+            <label class="toggle"><input type="checkbox" data-pay="${m.id}" class="pay-toggle" ${m.status==='ativo'?'checked':''}/><span class="track"></span></label>
+          </div>`).join('') || `<p class="muted pad-row">Nenhuma forma de pagamento cadastrada.</p>`}
       </div>
     </div>
   `;
 }
+function bindFreteEvents(){
+  document.querySelectorAll('.pay-toggle').forEach(t=>{
+    t.addEventListener('change', async ()=>{
+      await dbUpdate('payment_methods', t.dataset.pay, {status: t.checked?'ativo':'pausado'});
+      await loadPayments(); renderContent();
+    });
+  });
+}
+function openZonaDrawer(z){
+  openFormDrawer({
+    title: z ? 'Editar zona de entrega' : 'Nova zona de entrega',
+    fields: [
+      {id:'f-region', label:'Região', value:z?.region_name},
+      {id:'f-min', label:'Prazo mínimo (dias)', type:'number', value:z?.prazo_min},
+      {id:'f-max', label:'Prazo máximo (dias)', type:'number', value:z?.prazo_max},
+      {id:'f-type', label:'Tipo de frete', type:'select', value:z?.price_type||'calculado', options:[{value:'gratis',label:'Grátis'},{value:'fixo',label:'Valor fixo'},{value:'calculado',label:'Calculado por CEP'}]},
+      {id:'f-price', label:'Valor (se fixo)', type:'number', value:z?.price_value},
+      {id:'f-method', label:'Método', value:z?.method},
+    ],
+    onSave: async (v)=>{
+      const payload = {region_name:v['f-region'], prazo_min:Number(v['f-min'])||1, prazo_max:Number(v['f-max'])||1, price_type:v['f-type'], price_value:v['f-price']?Number(v['f-price']):null, method:v['f-method']};
+      if(z) await dbUpdate('shipping_zones', z.id, payload); else await dbInsert('shipping_zones', payload);
+      closeDrawer(); await loadShipping(); renderContent();
+    },
+    onDelete: z ? async ()=>{ if(await dbDelete('shipping_zones', z.id)){ closeDrawer(); await loadShipping(); renderContent(); } } : null,
+  });
+}
 
+/* ======================= FISCAL ======================= */
 function Fiscal(){
+  const f = DB.fiscal || {regime:'Simples Nacional', nfe_mode:'Automática', cfop_default:'5.102', ambiente:'Homologação'};
+  const invoices = DB.invoices || [];
   return `
     <div class="callout" style="margin-bottom:18px">${ic.alert} Alterações fiscais afetam a emissão de nota em pedidos futuros. Confirme com o contador antes de salvar.</div>
     <div class="card" style="margin-bottom:18px">
       <h3>Configuração fiscal</h3>
       <div class="grid grid-2">
-        <div class="field"><label>Regime tributário</label><select><option>Simples Nacional</option><option>Lucro Presumido</option><option>Lucro Real</option></select></div>
-        <div class="field"><label>Emissão de NF-e</label><select><option>Automática (ao aprovar pagamento)</option><option>Manual</option><option>Desativada</option></select></div>
-        <div class="field"><label>CFOP padrão</label><input value="5.102 - Venda de mercadoria"/></div>
-        <div class="field"><label>Ambiente</label><select><option>Produção</option><option>Homologação (testes)</option></select></div>
+        <div class="field"><label>Regime tributário</label><select id="f-regime">
+          ${['Simples Nacional','Lucro Presumido','Lucro Real'].map(o=>`<option ${f.regime===o?'selected':''}>${o}</option>`).join('')}
+        </select></div>
+        <div class="field"><label>Emissão de NF-e</label><select id="f-nfe">
+          ${['Automática','Manual','Desativada'].map(o=>`<option ${f.nfe_mode===o?'selected':''}>${o}</option>`).join('')}
+        </select></div>
+        <div class="field"><label>CFOP padrão</label><input id="f-cfop" value="${esc(f.cfop_default)}"/></div>
+        <div class="field"><label>Ambiente</label><select id="f-amb">
+          ${['Produção','Homologação'].map(o=>`<option ${f.ambiente===o?'selected':''}>${o}</option>`).join('')}
+        </select></div>
       </div>
-      <button class="btn btn-primary">Salvar configuração</button>
+      <button class="btn btn-primary" id="save-fiscal">Salvar configuração</button>
     </div>
     <div class="card">
       <h3>Últimas notas emitidas</h3>
       <div class="divide">
-        ${[{pedido:'MNZ-10482',numero:'000.184.221',status:'pago'},{pedido:'MNZ-10481',numero:'000.184.220',status:'pago'},{pedido:'MNZ-10480',numero:'—',status:'pendente'}].map(n=>`
+        ${invoices.map(n=>`
           <div class="row-flex" style="justify-content:space-between;padding:9px 0;font-size:13px">
-            <span class="mono" style="color:var(--muted)">${n.pedido}</span>
-            <span>${n.numero}</span>
-            ${badge(n.status)}
-          </div>`).join('')}
+            <span class="mono" style="color:var(--muted)">${n.orders?.order_number||'—'}</span>
+            <span>${n.nfe_number||'—'}</span>
+            ${badge(n.status==='autorizada'?'pago':n.status)}
+          </div>`).join('') || `<p class="muted" style="font-size:13px">Nenhuma nota emitida ainda.</p>`}
       </div>
     </div>
   `;
 }
+function bindFiscalEvents(){
+  const btn = document.getElementById('save-fiscal');
+  if(!btn) return;
+  btn.addEventListener('click', async ()=>{
+    const payload = {
+      regime: document.getElementById('f-regime').value,
+      nfe_mode: document.getElementById('f-nfe').value,
+      cfop_default: document.getElementById('f-cfop').value,
+      ambiente: document.getElementById('f-amb').value,
+    };
+    if(DB.fiscal?.id) await dbUpdate('fiscal_config', DB.fiscal.id, payload); else await dbInsert('fiscal_config', payload);
+    await loadFiscal(); renderContent();
+  });
+}
 
+/* ======================= INTEGRAÇÕES ======================= */
 function Integracoes(){
+  const list = DB.integrations || [];
   return `
-    <div class="table-card" style="margin-bottom:18px">
-      <div class="divide">
-        ${INTEGRATIONS.map(i=>`
-          <div class="row-flex pad-row">
-            <span style="font-size:22px;width:36px;text-align:center">${i.icon}</span>
-            <div style="flex:1"><div style="font-weight:600;font-size:13px">${i.name}</div><div class="muted" style="font-size:11.5px">${i.desc}</div></div>
-            ${badge(i.status)}
-            <button class="btn-outline btn" style="padding:6px 12px;font-size:12px">Configurar</button>
-          </div>`).join('')}
-      </div>
+    <div class="toolbar"><p class="muted" style="font-size:13px">Status das integrações do app.</p>
+      <button class="btn btn-primary" onclick="openIntegracaoDrawer(null)">${ic.plus} Nova integração</button>
     </div>
-    <div class="card">
-      <h3 style="display:flex;align-items:center;gap:8px">${ic.link} Chave de API do app</h3>
-      <p class="muted" style="font-size:12px;margin-top:-8px;margin-bottom:12px">Usada pelo app mobile pra se conectar com o painel. Não compartilhe publicamente.</p>
-      <div class="row-flex">
-        <input readonly value="mnz_live_sk_7f9a2b4c8d1e6f0a3b5c" class="mono" style="flex:1;background:var(--bg);color:var(--muted)"/>
-        <button class="icon-btn" style="border:1px solid var(--border);border-radius:9px;padding:8px">${ic.copy}</button>
+    <div class="table-card">
+      <div class="divide">
+        ${list.map(i=>`
+          <div class="row-flex pad-row">
+            <div style="flex:1"><div style="font-weight:600;font-size:13px">${i.name}</div><div class="muted" style="font-size:11.5px">${i.description||''}</div></div>
+            ${badge(i.status)}
+            <button class="btn-outline btn" style="padding:6px 12px;font-size:12px" onclick='openIntegracaoDrawer(${JSON.stringify(i)})'>Configurar</button>
+          </div>`).join('') || `<p class="muted pad-row">${DB.integrations===null?'Carregando...':'Nenhuma integração cadastrada.'}</p>`}
       </div>
     </div>
   `;
 }
+function openIntegracaoDrawer(i){
+  openFormDrawer({
+    title: i ? 'Editar integração' : 'Nova integração',
+    fields: [
+      {id:'f-name', label:'Nome', value:i?.name},
+      {id:'f-desc', label:'Descrição', value:i?.description},
+      {id:'f-status', label:'Status', type:'select', value:i?.status||'desconectado', options:[{value:'conectado',label:'Conectado'},{value:'atenção',label:'Atenção'},{value:'desconectado',label:'Desconectado'}]},
+    ],
+    onSave: async (v)=>{
+      const payload = {name:v['f-name'], description:v['f-desc'], status:v['f-status']};
+      if(i) await dbUpdate('integrations', i.id, payload); else await dbInsert('integrations', payload);
+      closeDrawer(); await loadIntegrations(); renderContent();
+    },
+    onDelete: i ? async ()=>{ if(await dbDelete('integrations', i.id)){ closeDrawer(); await loadIntegrations(); renderContent(); } } : null,
+  });
+}
 
+/* ======================= RELATÓRIOS ======================= */
 function Relatorios(){
-  const max = Math.max(...REPORTS_MONTHLY.map(r=>r.vendas));
+  const orders = DB.orders || [];
+  const now = new Date();
+  const months = [];
+  for(let i=5;i>=0;i--){
+    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+    months.push({key:`${d.getFullYear()}-${d.getMonth()}`, label:d.toLocaleDateString('pt-BR',{month:'short',year:'2-digit'}), vendas:0});
+  }
+  orders.forEach(o=>{
+    const d = new Date(o.created_at);
+    const key = `${d.getFullYear()}-${d.getMonth()}`;
+    const m = months.find(m=>m.key===key);
+    if(m) m.vendas += Number(o.total||0);
+  });
+  const max = Math.max(1, ...months.map(m=>m.vendas));
+
   return `
     <div style="display:flex;justify-content:flex-end;margin-bottom:14px">
-      <button class="btn btn-outline">${ic.download} Exportar CSV</button>
+      <button class="btn btn-outline" id="export-csv">${ic.download} Exportar CSV</button>
     </div>
     <div class="card" style="margin-bottom:18px">
       <h3>Vendas por mês</h3>
       <div class="bars">
-        ${REPORTS_MONTHLY.map(r=>`
+        ${months.map(m=>`
           <div class="bar-col">
-            <div class="val">${(r.vendas/1000).toFixed(1)}k</div>
-            <div class="bar" style="height:${(r.vendas/max)*100}%"></div>
-            <div class="lbl">${r.mes}</div>
+            <div class="val">${(m.vendas/1000).toFixed(1)}k</div>
+            <div class="bar" style="height:${(m.vendas/max)*100}%"></div>
+            <div class="lbl">${m.label}</div>
           </div>`).join('')}
       </div>
     </div>
     <div class="card">
-      <h3>Produtos mais vendidos no mês</h3>
+      <h3>Pedidos no período</h3>
+      <p class="muted" style="font-size:13px">${orders.length} pedidos no total, somando ${money(orders.reduce((s,o)=>s+Number(o.total||0),0))}.</p>
+    </div>
+  `;
+}
+function bindRelatoriosEvents(){
+  const btn = document.getElementById('export-csv');
+  if(!btn) return;
+  btn.addEventListener('click', ()=>{
+    const orders = DB.orders || [];
+    const rows = [['Pedido','Cliente','Status','Total','Data'], ...orders.map(o=>[o.order_number,o.clienteNome,o.status,o.total,o.created_at])];
+    const csv = rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'pedidos.csv'; a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
+/* ======================= EQUIPE ======================= */
+function Equipe(){
+  const list = DB.team || [];
+  return `
+    <div class="toolbar">
+      <p class="muted" style="font-size:13px">Quem pode entrar no painel. Pra dar acesso de verdade, crie o login em Authentication → Users no Supabase e depois vincule aqui.</p>
+      <button class="btn btn-primary" onclick="openEquipeDrawer(null)">${ic.plus} Adicionar pessoa</button>
+    </div>
+    <div class="table-card">
       <div class="divide">
-        ${TOP_PRODUCTS_REPORT.map((p,i)=>`
-          <div class="row-flex pad-row" style="padding:10px 0">
-            <span style="width:22px;height:22px;border-radius:50%;background:var(--bg);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--muted)">${i+1}</span>
-            <span style="flex:1;font-weight:600;font-size:13px">${p.name}</span>
-            <span class="muted" style="font-size:12.5px">${p.vendidos} vendidos</span>
-            <span style="font-weight:700;width:100px;text-align:right">${money(p.receita)}</span>
-          </div>`).join('')}
+        ${list.map(t=>`
+          <div class="row-flex pad-row">
+            <div class="avatar blue" style="width:36px;height:36px;font-size:12px">${initials(t.name)}</div>
+            <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px">${t.name}</div><div class="muted" style="font-size:11.5px">${t.email}</div></div>
+            <div class="muted" style="font-size:12px">${t.access_notes||''}</div>
+            <span class="badge" style="background:#eff6ff;color:#1d4ed8">${t.role}</span>
+            <button class="icon-btn" onclick='openEquipeDrawer(${JSON.stringify(t)})'>${ic.pencil}</button>
+          </div>`).join('') || `<p class="muted pad-row">${DB.team===null?'Carregando...':'Nenhuma pessoa cadastrada ainda.'}</p>`}
       </div>
     </div>
   `;
 }
-
-function Equipe(){
-  return `
-    <div class="toolbar">
-      <p class="muted" style="font-size:13px">Quem pode entrar no painel e o que cada pessoa pode alterar.</p>
-      <button class="btn btn-primary">${ic.plus} Convidar pessoa</button>
-    </div>
-    <div class="table-card">
-      <div class="divide">
-        ${TEAM.map(t=>`
-          <div class="row-flex pad-row">
-            <div class="avatar blue" style="width:36px;height:36px;font-size:12px">${initials(t.name)}</div>
-            <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px">${t.name}</div><div class="muted" style="font-size:11.5px">${t.email}</div></div>
-            <div class="muted" style="font-size:12px">${t.access}</div>
-            <span class="badge" style="background:#eff6ff;color:#1d4ed8">${t.role}</span>
-          </div>`).join('')}
-      </div>
-    </div>
-  `;
+function openEquipeDrawer(t){
+  openFormDrawer({
+    title: t ? 'Editar pessoa' : 'Adicionar pessoa',
+    fields: [
+      {id:'f-name', label:'Nome', value:t?.name},
+      {id:'f-email', label:'E-mail (precisa já existir em Authentication → Users)', value:t?.email},
+      {id:'f-role', label:'Função', type:'select', value:t?.role||'Estoque', options:[{value:'Admin',label:'Admin'},{value:'Marketing',label:'Marketing'},{value:'Estoque',label:'Estoque'},{value:'Financeiro',label:'Financeiro'}]},
+      {id:'f-notes', label:'O que pode mexer (texto livre)', value:t?.access_notes},
+    ],
+    onSave: async (v)=>{
+      const payload = {name:v['f-name'], email:v['f-email'], role:v['f-role'], access_notes:v['f-notes']};
+      if(t) await dbUpdate('team_members', t.id, payload); else await dbInsert('team_members', payload);
+      closeDrawer(); await loadTeam(); renderContent();
+    },
+    onDelete: t ? async ()=>{ if(await dbDelete('team_members', t.id)){ closeDrawer(); await loadTeam(); renderContent(); } } : null,
+  });
 }
 
 /* ======================= ROUTER ======================= */
@@ -698,12 +885,25 @@ const SECTIONS = {
   aparencia:Aparencia, pedidos:Pedidos, clientes:Clientes, cupons:Cupons, frete:Frete,
   fiscal:Fiscal, integracoes:Integracoes, relatorios:Relatorios, equipe:Equipe,
 };
-const POST_RENDER = { produtos:bindProdutosEvents, pedidos:bindPedidosEvents, clientes:bindClientesEvents, aparencia:bindAparenciaEvents };
+const POST_RENDER = {
+  produtos:bindProdutosEvents, pedidos:bindPedidosEvents, clientes:bindClientesEvents,
+  aparencia:bindAparenciaEvents, frete:bindFreteEvents, fiscal:bindFiscalEvents, relatorios:bindRelatoriosEvents,
+};
 
 let active = 'dashboard';
-function setActive(id){
+function renderNav(){
+  const el = document.getElementById('nav');
+  el.innerHTML = NAV.map(g => `
+    <div class="nav-group-label">${g.group}</div>
+    ${g.items.map(n => `<button data-id="${n.id}" class="${active===n.id?'active':''}">${ic[n.icon]} ${n.label} <span class="dot"></span></button>`).join('')}
+  `).join('');
+  el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => setActive(b.dataset.id)));
+}
+async function setActive(id){
   active = id;
-  renderNav(active);
+  renderNav();
+  document.getElementById('content').innerHTML = `<p class="muted">Carregando...</p>`;
+  if(LOADERS[id]) await LOADERS[id]();
   renderContent();
 }
 function renderContent(){
@@ -723,8 +923,51 @@ function closeDrawer(){
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('overlay').classList.remove('open');
 }
-document.getElementById('overlay').addEventListener('click', closeDrawer);
 
-renderNav(active);
-renderContent();
-loadProducts(); // primeira carga real do Supabase; renderContent() roda de novo quando chegar
+/* ======================= AUTENTICAÇÃO ======================= */
+async function boot(){
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if(session){ showApp(session); } else { showLogin(); }
+
+  supabaseClient.auth.onAuthStateChange((event, session)=>{
+    if(event === 'SIGNED_IN') showApp(session);
+    if(event === 'SIGNED_OUT') showLogin();
+  });
+}
+
+function showLogin(){
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app-screen').style.display = 'none';
+}
+
+async function showApp(session){
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app-screen').style.display = 'flex';
+
+  document.getElementById('overlay').addEventListener('click', closeDrawer);
+  document.getElementById('logout-btn').addEventListener('click', async ()=>{
+    await supabaseClient.auth.signOut();
+  });
+
+  const email = session.user.email;
+  document.getElementById('user-email').textContent = email;
+  document.getElementById('user-avatar').textContent = initials(email.split('@')[0].replace('.',' '));
+
+  renderNav();
+  await setActive('dashboard');
+}
+
+document.getElementById('login-form').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  const btn = document.getElementById('login-btn');
+  const errBox = document.getElementById('login-error');
+  errBox.style.display = 'none';
+  btn.disabled = true; btn.textContent = 'Entrando...';
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  btn.disabled = false; btn.textContent = 'Entrar';
+  if(error){ errBox.textContent = 'E-mail ou senha incorretos.'; errBox.style.display = 'block'; }
+});
+
+boot();

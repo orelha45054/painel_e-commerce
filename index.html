@@ -7,8 +7,21 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="app">
-  <!-- SIDEBAR -->
+
+<!-- TELA DE LOGIN -->
+<div id="login-screen" style="display:flex;min-height:100vh;align-items:center;justify-content:center;background:#0B1B3D;">
+  <form id="login-form" style="background:#fff;border-radius:16px;padding:32px;width:100%;max-width:340px;box-shadow:0 20px 50px rgba(0,0,0,.3)">
+    <div style="font-weight:900;font-size:20px;letter-spacing:-.02em;margin-bottom:4px">MNZ<span style="color:#E5232A">.</span>painel</div>
+    <div style="font-size:12px;color:#71717a;margin-bottom:22px">Entre com sua conta de administrador</div>
+    <div class="field"><label>E-mail</label><input id="login-email" type="email" required style="width:100%" /></div>
+    <div class="field"><label>Senha</label><input id="login-password" type="password" required style="width:100%" /></div>
+    <div id="login-error" style="display:none;background:#fef2f2;color:#b91c1c;font-size:12.5px;border-radius:8px;padding:9px 12px;margin-bottom:14px"></div>
+    <button id="login-btn" type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:11px">Entrar</button>
+  </form>
+</div>
+
+<!-- APP (só aparece depois do login) -->
+<div class="app" id="app-screen" style="display:none">
   <aside class="sidebar">
     <div class="sidebar-head">
       <div class="logo">MNZ<span>.</span>painel</div>
@@ -16,15 +29,16 @@
     </div>
     <nav class="nav" id="nav"></nav>
     <div class="sidebar-foot">
-      <div class="avatar">MN</div>
-      <div>
-        <div class="name">Matheus Nunes</div>
-        <div class="role">Admin</div>
+      <div class="avatar" id="user-avatar">MN</div>
+      <div style="flex:1;min-width:0">
+        <div class="name" id="user-email" style="font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">—</div>
       </div>
+      <button id="logout-btn" class="icon-btn" style="color:rgba(255,255,255,.5)" title="Sair">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </button>
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div class="main">
     <header class="topbar">
       <div>
@@ -36,9 +50,6 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="ping"></span>
         </button>
-        <div class="row-flex" style="cursor:pointer">
-          <div class="avatar blue" style="width:28px;height:28px;font-size:10.5px;">MN</div>
-        </div>
       </div>
     </header>
     <main class="content" id="content"></main>
