@@ -241,8 +241,31 @@ function Dashboard(){
 }
 
 let prodQuery='', prodCat='all';
+let PRODUCTS_CACHE = []; // populado pelo Supabase em loadProducts()
+
+async function loadProducts(){
+  const { data, error } = await supabaseClient
+    .from('products')
+    .select('id, name, price, status, category:categories(slug), product_variants(stock)')
+    .order('created_at', { ascending:false });
+
+  if(error){ console.error('Erro ao buscar produtos:', error); return; }
+
+  PRODUCTS_CACHE = data.map(p => ({
+    id: p.id,
+    name: p.name,
+    cat: p.category?.slug || null,
+    price: Number(p.price),
+    stock: (p.product_variants||[]).reduce((s,v)=>s+v.stock, 0),
+    status: p.status,
+    img: '👕', // troque depois por p.product_images quando tiver upload de imagem
+  }));
+
+  if(active === 'produtos') renderContent();
+}
+
 function Produtos(){
-  const filtered = PRODUCTS.filter(p => (prodCat==='all'||p.cat===prodCat) && p.name.toLowerCase().includes(prodQuery.toLowerCase()));
+  const filtered = PRODUCTS_CACHE.filter(p => (prodCat==='all'||p.cat===prodCat) && p.name.toLowerCase().includes(prodQuery.toLowerCase()));
   return `
     <div class="toolbar">
       <div class="row-flex" style="flex-wrap:wrap">
@@ -704,3 +727,4 @@ document.getElementById('overlay').addEventListener('click', closeDrawer);
 
 renderNav(active);
 renderContent();
+loadProducts(); // primeira carga real do Supabase; renderContent() roda de novo quando chegar
